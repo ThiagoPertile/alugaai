@@ -24,3 +24,31 @@ export async function openTicket(data: MaintenanceData) {
     prioridade: 'media',
   });
 }
+
+import { getMaintenanceTickets, updateTicketStatus } from '@/repositories/maintenanceRepository';
+
+export async function fetchTickets() {
+  try {
+    const tickets = await getMaintenanceTickets();
+    
+    // Formata e blinda a UI contra dados nulos
+    return tickets.map((t: any) => ({
+      id: t.id,
+      categoria: t.categoria,
+      descricao: t.descricao,
+      status: t.status,
+      data: new Date(t.created_at).toLocaleDateString('pt-BR'),
+      imovel: t.contratos?.imoveis?.titulo || 'Imóvel não encontrado',
+      inquilino: t.contratos?.inquilinos?.nome || 'Inquilino não encontrado',
+      whatsapp: t.contratos?.inquilinos?.whatsapp || '',
+    }));
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+export async function changeTicketStatus(id: string, status: string) {
+  // Aqui poderia entrar uma validação Zod para garantir que o status é válido
+  await updateTicketStatus(id, status);
+}

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {Home, Building, Users, Settings} from 'lucide-react';
+import {Home, Building, Users, Settings, HardHat, Handshake} from 'lucide-react';
 
 export default function Sidebar() {
   return (
@@ -22,6 +22,14 @@ export default function Sidebar() {
           <Users size={20} />
           <span>Leads (CRM)</span>
         </Link>
+        <Link href="/dashboard/maintenance" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
+          <HardHat size={20} />
+          <span>Manutenção</span>
+        </Link>
+            <Link href="/dashboard/providers" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
+              <Handshake size={20} />
+              <span>Parceiros</span>
+            </Link>
       </nav>
 
       <div className="p-4 border-t border-slate-800">
