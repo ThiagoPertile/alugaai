@@ -1,5 +1,6 @@
 import { ChamadoForm } from '@/components/ChamadoForm';
 import { AssignProviderForm } from '@/components/AssignProviderForm';
+import { ApproveQuoteForm } from '@/components/ApproveQuoteForm';
 import { createClient } from '@/lib/supabaseServer';
 import {
   Table,
@@ -12,6 +13,8 @@ import {
 
 export default async function ManutencoesPage() {
   const supabase = await createClient();
+  const formatCurrency = (value: number) =>
+    new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
 
   const [
     { data: properties, error: propertiesError },
@@ -26,7 +29,7 @@ export default async function ManutencoesPage() {
         .order('titulo'),
       supabase
         .from('chamados')
-        .select('id, titulo, descricao, status, created_at, imoveis(titulo)')
+        .select('id, titulo, descricao, status, created_at, imoveis(titulo), orcamentos(valor_total, taxa_plataforma, status)')
         .neq('status', 'concluido')
         .order('created_at', { ascending: false }),
       supabase
@@ -87,6 +90,9 @@ export default async function ManutencoesPage() {
                 const property = Array.isArray(chamado.imoveis)
                   ? chamado.imoveis[0]
                   : chamado.imoveis;
+                const quote = Array.isArray(chamado.orcamentos)
+                  ? chamado.orcamentos[0]
+                  : chamado.orcamentos;
 
                 return (
                   <TableRow key={chamado.id}>
@@ -109,6 +115,18 @@ export default async function ManutencoesPage() {
                           chamadoId={chamado.id}
                           providers={providers ?? []}
                         />
+                      ) : chamado.status === 'aguardando_orcamento' ? (
+                        <span className="text-sm text-slate-500">Aguardando prestador...</span>
+                      ) : chamado.status === 'aguardando_aprovacao' && quote ? (
+                        <div className="space-y-2">
+                          <p className="text-sm font-medium text-slate-700">
+                            Valor: {formatCurrency(Number(quote.valor_total))}
+                          </p>
+                          <p className="text-xs text-slate-500">
+                            Taxa Retida: {formatCurrency(Number(quote.taxa_plataforma))}
+                          </p>
+                          <ApproveQuoteForm chamadoId={chamado.id} />
+                        </div>
                       ) : (
                         <span className="text-sm text-slate-500">Prestador acionado</span>
                       )}

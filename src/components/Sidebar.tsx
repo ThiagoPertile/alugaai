@@ -41,14 +41,11 @@ export default function Sidebar() {
               <Handshake size={20} />
               <span>Parceiros</span>
             </Link>
+            <Link href="/dashboard/prestador/chamados" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
+              <HardHat size={20} />
+              <span>Chamados do prestador</span>
+            </Link>
       </nav>
-
-      <div className="p-4 border-t border-slate-800">
-        <Link href="/dashboard/configuracoes" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
-          <Settings size={20} />
-          <span>Configurações</span>
-        </Link>
-      </div>
 
       <div className="p-4 border-t border-slate-800 space-y-2">
         <Link href="/dashboard/configuracoes" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
