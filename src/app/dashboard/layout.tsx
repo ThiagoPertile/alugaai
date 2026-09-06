@@ -9,7 +9,7 @@ export default function DashboardLayout({
     <div className="flex min-h-screen bg-slate-50">
       <Sidebar />
       {/* A tag <main> renderizará o conteúdo de cada página do painel */}
-      <main className="flex-1 p-8 overflow-y-auto">
+      <main className="flex-1 p-8">
         {children}
       </main>
     </div>
