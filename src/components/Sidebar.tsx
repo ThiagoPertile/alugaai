@@ -1,7 +1,18 @@
+'use client';
+
 import Link from 'next/link';
-import {Home, Building, Users, Settings, HardHat, Handshake} from 'lucide-react';
+import {Home, Building, Users, Settings, HardHat, Handshake, LogOut} from 'lucide-react';
+import { supabase } from '@/lib/supabase';
+import { useRouter } from 'next/navigation';
 
 export default function Sidebar() {
+  const router = useRouter();
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push('/login');
+    router.refresh();
+  };
+
   return (
     <aside className="w-64 bg-slate-900 text-slate-300 min-h-screen flex flex-col">
       <div className="p-6 border-b border-slate-800">
@@ -37,6 +48,17 @@ export default function Sidebar() {
           <Settings size={20} />
           <span>Configurações</span>
         </Link>
+      </div>
+
+      <div className="p-4 border-t border-slate-800 space-y-2">
+        <Link href="/dashboard/configuracoes" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
+          <Settings size={20} />
+          <span>Configurações</span>
+        </Link>
+        <button onClick={handleLogout} className="flex w-full items-center gap-3 p-3 rounded-lg hover:bg-red-900/50 hover:text-red-400 transition-colors">
+          <LogOut size={20} />
+          <span>Sair</span>
+        </button>
       </div>
     </aside>
   );
