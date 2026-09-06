@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase';
+import { createClient } from '@/lib/supabaseServer';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,6 +11,8 @@ import {
 } from '@/components/ui/table';
 
 export default async function ImoveisPage() {
+  const supabase = await createClient();
+
   // Busca os imóveis no Supabase, ordenando pelos mais recentes
   const { data: imoveis, error } = await supabase
     .from('imoveis')
