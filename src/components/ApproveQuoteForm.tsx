@@ -28,7 +28,14 @@ export function ApproveQuoteForm({ chamadoId }: ApproveQuoteFormProps) {
   }
 
   return (
-    <Button type="button" size="sm" onClick={handleApprove} disabled={isPending}>
+    <Button
+      type="button"
+      size="sm"
+      onClick={handleApprove}
+      disabled={isPending}
+      aria-busy={isPending}
+      className="bg-emerald-600 text-white hover:bg-emerald-700"
+    >
       {isPending ? 'Aprovando...' : 'Aprovar Orçamento'}
     </Button>
   );

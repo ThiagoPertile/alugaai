@@ -87,6 +87,7 @@ export default async function ManutencoesPage() {
             </TableHeader>
             <TableBody>
               {chamados?.map((chamado) => {
+                const status = String(chamado.status).toLowerCase();
                 const property = Array.isArray(chamado.imoveis)
                   ? chamado.imoveis[0]
                   : chamado.imoveis;
@@ -106,25 +107,31 @@ export default async function ManutencoesPage() {
                     </TableCell>
                     <TableCell>
                       <span className="rounded-full bg-amber-100 px-2 py-1 text-xs font-semibold uppercase text-amber-700">
-                        {chamado.status}
+                        {status.replaceAll('_', ' ')}
                       </span>
                     </TableCell>
                     <TableCell>
-                      {chamado.status === 'pendente' ? (
+                      {status === 'pendente' ? (
                         <AssignProviderForm
                           chamadoId={chamado.id}
                           providers={providers ?? []}
                         />
-                      ) : chamado.status === 'aguardando_orcamento' ? (
+                      ) : status === 'aguardando_orcamento' ? (
                         <span className="text-sm text-slate-500">Aguardando prestador...</span>
-                      ) : chamado.status === 'aguardando_aprovacao' && quote ? (
+                      ) : status === 'aguardando_aprovacao' ? (
                         <div className="space-y-2">
-                          <p className="text-sm font-medium text-slate-700">
-                            Valor: {formatCurrency(Number(quote.valor_total))}
-                          </p>
-                          <p className="text-xs text-slate-500">
-                            Taxa Retida: {formatCurrency(Number(quote.taxa_plataforma))}
-                          </p>
+                          {quote ? (
+                            <p className="text-sm font-medium text-slate-700">
+                              Valor: {formatCurrency(Number(quote.valor_total))}
+                            </p>
+                          ) : (
+                            <p className="text-xs text-red-600">Valor indisponível</p>
+                          )}
+                          {quote && (
+                            <p className="text-xs text-slate-500">
+                              Taxa Retida: {formatCurrency(Number(quote.taxa_plataforma))}
+                            </p>
+                          )}
                           <ApproveQuoteForm chamadoId={chamado.id} />
                         </div>
                       ) : (

@@ -48,12 +48,12 @@ export function AssignProviderForm({ chamadoId, providers }: AssignProviderFormP
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex min-w-56 gap-2">
+    <form onSubmit={handleSubmit} className="flex min-w-56 gap-2" aria-busy={isPending}>
       <select
         value={providerId}
         onChange={(event) => setProviderId(event.target.value)}
         disabled={isPending}
-        className="h-8 min-w-36 rounded-md border border-slate-200 bg-white px-2 text-xs outline-none focus:ring-2 focus:ring-slate-400"
+        className="h-8 min-w-36 cursor-pointer rounded-md border border-slate-200 bg-white px-2 text-xs text-slate-700 shadow-sm outline-none transition-[border-color,box-shadow] hover:border-slate-300 focus:border-slate-500 focus:ring-2 focus:ring-slate-200 disabled:cursor-wait disabled:bg-slate-100 disabled:opacity-60"
         aria-label="Selecionar prestador"
       >
         <option value="">Selecionar</option>
@@ -63,7 +63,7 @@ export function AssignProviderForm({ chamadoId, providers }: AssignProviderFormP
           </option>
         ))}
       </select>
-      <Button type="submit" size="sm" disabled={isPending || !providerId}>
+      <Button type="submit" size="sm" disabled={isPending || !providerId} aria-busy={isPending}>
         {isPending ? 'Enviando...' : 'Notificar'}
       </Button>
     </form>

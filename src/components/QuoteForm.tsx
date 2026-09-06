@@ -42,7 +42,7 @@ export function QuoteForm({ chamadoId }: QuoteFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="min-w-64 space-y-2">
+    <form onSubmit={handleSubmit} className="min-w-64 space-y-2" aria-busy={isPending}>
       <Input
         type="number"
         min="0.01"
@@ -52,6 +52,7 @@ export function QuoteForm({ chamadoId }: QuoteFormProps) {
         placeholder="Valor total"
         aria-label="Valor total do orçamento"
         disabled={isPending}
+        className="transition-[border-color,box-shadow] hover:border-slate-300 focus-visible:border-slate-500 focus-visible:ring-slate-200 disabled:cursor-wait disabled:bg-slate-100"
         required
       />
       <Textarea
@@ -62,9 +63,9 @@ export function QuoteForm({ chamadoId }: QuoteFormProps) {
         disabled={isPending}
         required
         minLength={3}
-        className="min-h-20"
+        className="min-h-20 transition-[border-color,box-shadow] hover:border-slate-300 focus-visible:border-slate-500 focus-visible:ring-slate-200 disabled:cursor-wait disabled:bg-slate-100"
       />
-      <Button type="submit" size="sm" disabled={isPending}>
+      <Button type="submit" size="sm" disabled={isPending} aria-busy={isPending}>
         {isPending ? 'Enviando...' : 'Enviar orçamento'}
       </Button>
     </form>
