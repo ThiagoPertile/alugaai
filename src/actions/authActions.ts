@@ -1,11 +1,22 @@
 'use server';
 
 import { createClient } from '@/lib/supabaseServer';
-import { redirect } from 'next/navigation';
 
-export async function loginAction(formData: FormData) {
+export type AuthActionState = {
+  error?: string;
+  success?: string;
+};
+
+export async function loginAction(
+  _previousState: AuthActionState,
+  formData: FormData
+): Promise<AuthActionState> {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
+
+  if (!email || !password) {
+    return { error: 'Informe o e-mail e a senha.' };
+  }
 
   const supabase = await createClient();
   
@@ -19,6 +30,5 @@ export async function loginAction(formData: FormData) {
     return { error: 'E-mail ou senha incorretos.' };
   }
 
-  // Se der certo, redireciona para o painel
-  redirect('/dashboard');
+  return { success: 'Login realizado com sucesso.' };
 }

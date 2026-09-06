@@ -33,7 +33,7 @@ export default function Sidebar() {
           <Users size={20} />
           <span>Leads (CRM)</span>
         </Link>
-        <Link href="/dashboard/maintenance" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
+        <Link href="/dashboard/manutencoes" className="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-800 hover:text-white transition-colors">
           <HardHat size={20} />
           <span>Manutenção</span>
         </Link>
