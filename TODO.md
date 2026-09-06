@@ -1,9 +1,9 @@
 # Roadmap RentFlow SaaS
 
 ## Fase 1: Segurança e Lapidação do MVP (Foco Atual)
-- [ ] **Autenticação:** Tela de login conectada ao Supabase Auth.
-- [ ] **Proteção de Rotas:** Middleware Next.js para blindar o acesso ao `/dashboard`.
-- [ ] **Segurança de Dados (RLS):** Ativar políticas no Supabase para garantir que uma imobiliária não veja os dados da outra.
+- [OK] **Autenticação:** Tela de login conectada ao Supabase Auth.
+- [OK] **Proteção de Rotas:** Middleware Next.js para blindar o acesso ao `/dashboard`.
+- [OK] **Segurança de Dados (RLS):** Ativar políticas no Supabase para garantir que uma imobiliária não veja os dados da outra.
 - [ ] **Dashboard Real:** Substituir indicadores estáticos da Home por métricas reais do banco.
 - [ ] **UX/Feedback:** Implementar alertas visuais (Toasts) para sucesso ou erro nas ações.
 
