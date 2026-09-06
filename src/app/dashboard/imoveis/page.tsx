@@ -28,7 +28,7 @@ export default async function ImoveisPage() {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-slate-800">Imóveis</h1>
-        <Link href="/dashboard/imoveis/novo">
+        <Link href="/dashboard/imoveis/new-property">
           <Button>+ Novo Imóvel</Button>
         </Link>
       </div>
